@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { AlertCircle, CheckCircle2, Loader2 } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import { Suspense, useEffect, useRef, useState } from 'react';
 
 import { Alert } from '@/components/feedback/alert';
@@ -16,9 +16,9 @@ import { AuthRepository } from '@/features/auth/repository';
 type Status = 'verifying' | 'success' | 'error';
 
 function VerifyEmailContent() {
-  const searchParams = useSearchParams();
+  const params = useParams();
   const router = useRouter();
-  const token = searchParams.get('token');
+  const token = typeof params?.token === 'string' ? params.token : null;
 
   const [status, setStatus] = useState<Status>(token ? 'verifying' : 'error');
   const [errorMsg, setErrorMsg] = useState<string>('');
