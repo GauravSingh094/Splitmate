@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion';
 import React from 'react';
 
+import { PwaInstallPrompt } from '@/components/pwa/install-prompt';
+import { PwaUpdateToast } from '@/components/pwa/update-toast';
 import { SkipNav } from '@/components/primitives/skip-nav';
 import { AppHeader } from '@/components/shell/app-header';
 import { AppSidebar } from '@/components/shell/app-sidebar';
@@ -22,6 +24,8 @@ export function AuthenticatedLayout({ children }: AuthenticatedLayoutProps) {
         <WorkspaceProvider>
           <SkipNav />
           <KeyboardShortcutsListener />
+          <PwaInstallPrompt />
+          <PwaUpdateToast />
           <div className="relative flex h-screen w-full overflow-hidden bg-background text-foreground">
             {/* Production Responsive Sidebar */}
             <AppSidebar />

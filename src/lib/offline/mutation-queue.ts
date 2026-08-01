@@ -1,3 +1,4 @@
+import { openDB, type IDBPDatabase } from 'idb';
 import { networkStatus } from './network-status';
 
 export interface QueuedMutation {
@@ -8,13 +9,16 @@ export interface QueuedMutation {
   createdAt: number;
 }
 
-const STORAGE_KEY = 'splito_queued_mutations';
+const DB_NAME = 'splito-offline-db';
+const STORE_NAME = 'mutations';
 
 class OfflineMutationQueue {
-  private queue: QueuedMutation[] = [];
+  private dbPromise: Promise<IDBPDatabase | null>;
 
   constructor() {
-    this.loadFromStorage();
+    this.dbPromise = this.initDB();
+
+    // Subscribe to online status to replay queue in the UI thread
     if (typeof window !== 'undefined') {
       networkStatus.subscribe((isOnline) => {
         if (isOnline) {
@@ -24,28 +28,22 @@ class OfflineMutationQueue {
     }
   }
 
-  private loadFromStorage() {
-    if (typeof window === 'undefined') return;
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        this.queue = JSON.parse(stored);
-      }
-    } catch {
-      this.queue = [];
-    }
+  private async initDB() {
+    // Only initialize DB in browser or Service Worker context
+    if (typeof window === 'undefined' && typeof self === 'undefined') return null;
+    return openDB(DB_NAME, 1, {
+      upgrade(db) {
+        if (!db.objectStoreNames.contains(STORE_NAME)) {
+          db.createObjectStore(STORE_NAME, { keyPath: 'id' });
+        }
+      },
+    });
   }
 
-  private saveToStorage() {
-    if (typeof window === 'undefined') return;
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.queue));
-    } catch (e) {
-      console.warn('[Offline Queue] Failed to save queued mutation:', e);
-    }
-  }
+  async enqueue(mutation: Omit<QueuedMutation, 'id' | 'createdAt'>): Promise<void> {
+    const db = await this.dbPromise;
+    if (!db) return;
 
-  enqueue(mutation: Omit<QueuedMutation, 'id' | 'createdAt'>): void {
     const item: QueuedMutation = {
       ...mutation,
       id:
@@ -54,34 +52,41 @@ class OfflineMutationQueue {
           : Math.random().toString(36),
       createdAt: Date.now(),
     };
-    this.queue.push(item);
-    this.saveToStorage();
+
+    await db.put(STORE_NAME, item);
   }
 
-  getPendingMutations(): QueuedMutation[] {
-    return [...this.queue];
+  async getPendingMutations(): Promise<QueuedMutation[]> {
+    const db = await this.dbPromise;
+    if (!db) return [];
+    return db.getAll(STORE_NAME);
   }
 
   async replayQueue(): Promise<void> {
-    if (this.queue.length === 0) return;
+    const db = await this.dbPromise;
+    if (!db) return;
 
-    const itemsToProcess = [...this.queue];
-    this.queue = [];
-    this.saveToStorage();
+    const itemsToProcess = await this.getPendingMutations();
+    if (itemsToProcess.length === 0) return;
 
-    for (const item of itemsToProcess) {
+    // Process sequentially based on insertion order
+    for (const item of itemsToProcess.sort((a, b) => a.createdAt - b.createdAt)) {
       try {
-        // Replay request using global fetch/axios
-        await fetch(item.endpoint, {
+        const res = await fetch(item.endpoint, {
           method: item.method,
           headers: { 'Content-Type': 'application/json' },
           body: item.payload ? JSON.stringify(item.payload) : undefined,
         });
+
+        if (res.ok || res.status >= 400) {
+          // Remove from queue on success OR definitive failure (like 400 Bad Request)
+          // We don't want to eternally loop on a malformed request
+          await db.delete(STORE_NAME, item.id);
+        }
       } catch (err) {
-        console.warn(`[Offline Queue] Failed to replay mutation ${item.id}:`, err);
-        // Re-enqueue failed mutations for next reconnect
-        this.queue.push(item);
-        this.saveToStorage();
+        console.warn(`[Offline Queue] Network failed while replaying ${item.id}:`, err);
+        // Break on network error to preserve order for next connection
+        break;
       }
     }
   }
