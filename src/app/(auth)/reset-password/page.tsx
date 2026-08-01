@@ -33,7 +33,6 @@ import {
 import { ROUTES } from '@/constants/routes';
 import { Icon } from '@/design-system/components/icon';
 import { AuthRepository } from '@/features/auth/repository';
-import { AppApiError } from '@/lib/api-error';
 import { passwordSchema } from '@/schemas/common';
 
 const resetPasswordFormSchema = z
@@ -83,14 +82,8 @@ function ResetPasswordForm() {
       setTimeout(() => {
         router.push(ROUTES.auth.login);
       }, 2500);
-    } catch (err) {
-      if (err instanceof AppApiError) {
-        setErrorMsg(err.message);
-      } else {
-        setErrorMsg(
-          'Failed to reset password. The link may have expired. Please request a new one.',
-        );
-      }
+    } catch (_err) {
+      setErrorMsg('Link expired. Request a new one.');
     } finally {
       setIsLoading(false);
     }
@@ -107,7 +100,7 @@ function ResetPasswordForm() {
           </CardHeader>
           <CardBody>
             <Alert variant="danger" title="Invalid Link">
-              Please request a new password reset link.
+              Link expired. Request a new one.
             </Alert>
             <div className="mt-4">
               <Link href={ROUTES.auth.forgotPassword} className="w-full">
@@ -135,7 +128,7 @@ function ResetPasswordForm() {
             <Icon icon={isSuccess ? CheckCircle2 : Lock} size={24} />
           </div>
           <CardTitle className="text-2xl font-bold tracking-tight">
-            {isSuccess ? 'Password reset complete' : 'Set new password'}
+            {isSuccess ? 'Password reset successfully' : 'Set new password'}
           </CardTitle>
           <CardDescription>
             {isSuccess

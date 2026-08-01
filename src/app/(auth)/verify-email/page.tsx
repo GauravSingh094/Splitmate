@@ -12,7 +12,6 @@ import { Card, CardBody, CardDescription, CardHeader, CardTitle } from '@/compon
 import { ROUTES } from '@/constants/routes';
 import { Icon } from '@/design-system/components/icon';
 import { AuthRepository } from '@/features/auth/repository';
-import { AppApiError } from '@/lib/api-error';
 
 type Status = 'verifying' | 'success' | 'error';
 
@@ -37,15 +36,9 @@ function VerifyEmailContent() {
         setTimeout(() => {
           router.push(`${ROUTES.auth.login}?verified=true`);
         }, 3000);
-      } catch (err) {
+      } catch (_err) {
         setStatus('error');
-        if (err instanceof AppApiError) {
-          setErrorMsg(err.message);
-        } else {
-          setErrorMsg(
-            'This verification link is invalid or has expired. Please request a new one.',
-          );
-        }
+        setErrorMsg('Link expired or already used');
       }
     };
 
@@ -77,8 +70,8 @@ function VerifyEmailContent() {
 
           <CardTitle className="text-2xl font-bold tracking-tight">
             {status === 'verifying' && 'Verifying your email...'}
-            {status === 'success' && 'Email verified!'}
-            {status === 'error' && 'Verification failed'}
+            {status === 'success' && 'Email verified successfully'}
+            {status === 'error' && 'Link expired or already used'}
           </CardTitle>
 
           <CardDescription>
@@ -104,11 +97,6 @@ function VerifyEmailContent() {
                 </Alert>
               )}
               <div className="flex flex-col gap-2 pt-2">
-                <Link href={ROUTES.auth.verifyEmailPending}>
-                  <Button variant="primary" size="lg" fullWidth>
-                    Request New Verification Email
-                  </Button>
-                </Link>
                 <Link href={ROUTES.auth.login}>
                   <Button variant="outline" size="lg" fullWidth>
                     Back to Sign In
