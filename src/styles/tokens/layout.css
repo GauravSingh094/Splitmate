@@ -1,0 +1,35 @@
+/* ============================================================
+   SPLITO DESIGN SYSTEM — Layout & Grid Tokens
+   Breakpoints, max widths, safe paddings, and grid gaps
+   ============================================================ */
+
+:root {
+  /* Breakpoints */
+  --breakpoint-xs: 475px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* Container Max-Widths */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1440px;
+  --container-page: 1200px;
+  --container-content: 800px;
+
+  /* Layout Widths */
+  --sidebar-width: 260px;
+  --sidebar-collapsed-width: 68px;
+  --header-height: 64px;
+
+  /* Grid & Section Gaps */
+  --gap-section: 3rem; /* 48px */
+  --gap-grid: 1.5rem; /* 24px */
+  --gap-card: 1rem; /* 16px */
+  --gap-form: 1.25rem; /* 20px */
+  --gap-dashboard: 1.5rem; /* 24px */
+}

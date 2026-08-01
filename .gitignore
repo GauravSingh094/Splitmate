@@ -1,0 +1,78 @@
+# =================================================================
+# Splito — .gitignore
+# =================================================================
+
+# ----- Dependencies -----
+/node_modules
+/.pnp
+.pnp.*
+
+# ----- Build outputs -----
+/.next/
+/out/
+/build
+/dist
+
+# ----- Testing -----
+/coverage
+/.nyc_output
+
+# ----- Environment -----
+# Commit .env.example ONLY. Never commit real env files.
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ----- Logs -----
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+*.log
+
+# ----- OS -----
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ----- IDE -----
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+.idea/
+*.swp
+*.swo
+
+# ----- Vercel -----
+.vercel
+
+# ----- TypeScript -----
+*.tsbuildinfo
+next-env.d.ts
+
+# ----- Security -----
+*.pem
+*.key
+*.cert
+*.p12
+*.pfx
+*secret*
+*credential*
+
+# ----- Caches -----
+.eslintcache
+.stylelintcache
+.npm/
+
+# ----- Strict Env Ignoral -----
+# Catch any stray env files just in case
+.env.*
+!.env.example
+!.env.template

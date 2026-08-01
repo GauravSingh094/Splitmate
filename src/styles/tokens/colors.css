@@ -1,0 +1,158 @@
+/* ============================================================
+   SPLITO DESIGN SYSTEM — Color Tokens
+   Neo-Claymorphism: Soft matte, low-noise palette for Light & Dark modes.
+   ============================================================ */
+
+:root {
+  /* --- Primitive Color Palette (Light Mode Defaults) --- */
+  --slate-50: 210 40% 98%;
+  --slate-100: 210 40% 96.1%;
+  --slate-200: 214.3 31.8% 91.4%;
+  --slate-300: 212.7 26.8% 83.9%;
+  --slate-400: 215 20.2% 65.1%;
+  --slate-500: 215.4 16.3% 46.9%;
+  --slate-600: 215.3 19.3% 34.5%;
+  --slate-700: 215.3 25% 26.7%;
+  --slate-800: 217.2 32.6% 17.5%;
+  --slate-900: 222.2 47.4% 11.2%;
+  --slate-950: 222.2 84% 4.9%;
+
+  /* Brand Primitives — Emerald Accent for Expense/Finance clarity */
+  --brand-50: 152 81% 96%;
+  --brand-100: 149 80% 90%;
+  --brand-500: 160 84% 39%;
+  --brand-600: 161 94% 30%;
+  --brand-700: 163 94% 24%;
+
+  /* --- Semantic Tokens (Light Mode) --- */
+  --background: hsl(210 40% 98%);
+  --foreground: hsl(222.2 47.4% 11.2%);
+
+  --surface: hsl(0 0% 100%);
+  --surface-raised: hsl(210 40% 99%);
+  --surface-overlay: hsl(0 0% 100%);
+  --surface-inset: hsl(214.3 31.8% 93%);
+
+  --primary: hsl(222.2 47.4% 11.2%);
+  --primary-foreground: hsl(210 40% 98%);
+
+  --secondary: hsl(214.3 31.8% 91.4%);
+  --secondary-foreground: hsl(222.2 47.4% 11.2%);
+
+  --accent: hsl(160 84% 39%);
+  --accent-foreground: hsl(0 0% 100%);
+
+  --muted: hsl(210 40% 96.1%);
+  --muted-foreground: hsl(215.4 16.3% 46.9%);
+
+  --success: hsl(142.1 76.2% 36.3%);
+  --success-foreground: hsl(355.7 100% 97.3%);
+
+  --warning: hsl(37.7 92.1% 50.2%);
+  --warning-foreground: hsl(26 83.3% 14.1%);
+
+  --danger: hsl(0 84.2% 60.2%);
+  --danger-foreground: hsl(0 0% 98%);
+
+  --info: hsl(198.6 88.7% 48.4%);
+  --info-foreground: hsl(0 0% 100%);
+
+  --border: hsl(214.3 31.8% 91.4%);
+  --border-muted: hsl(210 40% 94%);
+  --border-strong: hsl(215 20.2% 65.1%);
+  --border-interactive: hsl(160 84% 39%);
+
+  --input: hsl(214.3 31.8% 91.4%);
+  --ring: hsl(160 84% 39%);
+
+  --chart-1: hsl(160 84% 39%);
+  --chart-2: hsl(198.6 88.7% 48.4%);
+  --chart-3: hsl(37.7 92.1% 50.2%);
+  --chart-4: hsl(280 65% 60%);
+  --chart-5: hsl(340 75% 55%);
+
+  --sidebar: hsl(210 40% 97%);
+  --sidebar-foreground: hsl(222.2 47.4% 11.2%);
+  --sidebar-primary: hsl(160 84% 39%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(214.3 31.8% 91.4%);
+  --sidebar-accent-foreground: hsl(222.2 47.4% 11.2%);
+  --sidebar-border: hsl(214.3 31.8% 91.4%);
+
+  --overlay: rgba(15, 23, 42, 0.5);
+
+  --disabled: hsl(210 40% 94%);
+  --disabled-foreground: hsl(215 20.2% 65.1%);
+
+  --hover-overlay: rgba(0, 0, 0, 0.04);
+  --pressed-overlay: rgba(0, 0, 0, 0.08);
+
+  --selection-bg: hsl(160 84% 39% / 0.2);
+  --selection-fg: hsl(222.2 47.4% 11.2%);
+
+  --skeleton: hsl(214.3 31.8% 91.4%);
+}
+
+/* --- Dark Mode Overrides --- */
+.dark {
+  --background: hsl(222.2 84% 4.9%);
+  --foreground: hsl(210 40% 98%);
+
+  --surface: hsl(222.2 47.4% 9.5%);
+  --surface-raised: hsl(222.2 47.4% 12%);
+  --surface-overlay: hsl(222.2 47.4% 11.2%);
+  --surface-inset: hsl(222.2 84% 3.5%);
+
+  --primary: hsl(210 40% 98%);
+  --primary-foreground: hsl(222.2 47.4% 11.2%);
+
+  --secondary: hsl(217.2 32.6% 17.5%);
+  --secondary-foreground: hsl(210 40% 98%);
+
+  --accent: hsl(160 84% 45%);
+  --accent-foreground: hsl(222.2 84% 4.9%);
+
+  --muted: hsl(217.2 32.6% 15%);
+  --muted-foreground: hsl(215 20.2% 65.1%);
+
+  --success: hsl(142.1 70.6% 45.3%);
+  --success-foreground: hsl(144 100% 97%);
+
+  --warning: hsl(48 96% 53%);
+  --warning-foreground: hsl(26 83.3% 14.1%);
+
+  --danger: hsl(0 72% 51%);
+  --danger-foreground: hsl(0 0% 98%);
+
+  --info: hsl(199 89% 48%);
+  --info-foreground: hsl(0 0% 100%);
+
+  --border: hsl(217.2 32.6% 17.5%);
+  --border-muted: hsl(217.2 32.6% 13%);
+  --border-strong: hsl(215.3 19.3% 34.5%);
+  --border-interactive: hsl(160 84% 45%);
+
+  --input: hsl(217.2 32.6% 17.5%);
+  --ring: hsl(160 84% 45%);
+
+  --sidebar: hsl(222.2 47.4% 8.5%);
+  --sidebar-foreground: hsl(210 40% 98%);
+  --sidebar-primary: hsl(160 84% 45%);
+  --sidebar-primary-foreground: hsl(222.2 84% 4.9%);
+  --sidebar-accent: hsl(217.2 32.6% 17.5%);
+  --sidebar-accent-foreground: hsl(210 40% 98%);
+  --sidebar-border: hsl(217.2 32.6% 15%);
+
+  --overlay: rgba(0, 0, 0, 0.75);
+
+  --disabled: hsl(217.2 32.6% 15%);
+  --disabled-foreground: hsl(215.4 16.3% 46.9%);
+
+  --hover-overlay: rgba(255, 255, 255, 0.05);
+  --pressed-overlay: rgba(255, 255, 255, 0.1);
+
+  --selection-bg: hsl(160 84% 45% / 0.3);
+  --selection-fg: hsl(210 40% 98%);
+
+  --skeleton: hsl(217.2 32.6% 15%);
+}

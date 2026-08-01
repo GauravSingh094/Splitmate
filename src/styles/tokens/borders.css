@@ -1,0 +1,14 @@
+/* ============================================================
+   SPLITO DESIGN SYSTEM — Border Tokens
+   Border widths and semantic stroke styles
+   ============================================================ */
+
+:root {
+  --border-width-none: 0px;
+  --border-width-hairline: 1px;
+  --border-width-thick: 2px;
+
+  --border-style-solid: solid;
+  --border-style-dashed: dashed;
+  --border-style-dotted: dotted;
+}

@@ -1,0 +1,44 @@
+name: Splito Production CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  quality-assurance:
+    name: Quality Assurance & Build Verification
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: TypeScript Type Check
+        run: pnpm type-check
+
+      - name: ESLint Code Quality
+        run: pnpm lint
+
+      - name: Vitest Unit & Component Tests
+        run: pnpm test
+
+      - name: Next.js Production Build
+        run: pnpm build
+        env:
+          NEXT_PUBLIC_API_URL: https://apiv1.splitmate.page/api/v1

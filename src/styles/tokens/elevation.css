@@ -1,0 +1,22 @@
+/* ============================================================
+   SPLITO DESIGN SYSTEM — Elevation Tokens (Z-Index Hierarchy)
+   Semantic z-index scale to prevent arbitrary z-index numbers
+   ============================================================ */
+
+:root {
+  --z-index-deep: -1;
+  --z-index-base: 0;
+  --z-index-surface: 1;
+  --z-index-raised: 10;
+  --z-index-dropdown: 100;
+  --z-index-sticky: 200;
+  --z-index-floating: 300;
+  --z-index-navigation: 400;
+  --z-index-popover: 500;
+  --z-index-drawer: 600;
+  --z-index-overlay: 700;
+  --z-index-modal: 800;
+  --z-index-tooltip: 900;
+  --z-index-toast: 1000;
+  --z-index-max: 9999;
+}

@@ -1,0 +1,8 @@
+# Global Codeowners
+* @splitoapp/core-team
+
+# Core Architecture & Config
+/src/lib/ @splitoapp/architects
+/src/providers/ @splitoapp/architects
+/src/repositories/ @splitoapp/architects
+/openapi.json @splitoapp/architects

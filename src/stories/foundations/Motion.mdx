@@ -1,0 +1,21 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Foundations/Motion" />
+
+# ⚡ Motion Engine & Animations
+
+Splito relies on **Framer Motion** preset transitions (`src/lib/motion.ts`) for fluid, physical UI interactions.
+
+---
+
+## Spring Tokens & Transitions
+
+- **Fast Micro-interaction**: `transition: { type: 'spring', stiffness: 400, damping: 25 }`
+- **Modal Enter**: `transition: { type: 'spring', stiffness: 300, damping: 24 }`
+- **Page Slide**: `transition: { duration: 0.2, ease: 'easeInOut' }`
+
+---
+
+## Reduced Motion Policy
+
+All animations automatically respect `prefers-reduced-motion: reduce`. When detected, transitions fall back to instant state changes or subtle opacity cross-fades.

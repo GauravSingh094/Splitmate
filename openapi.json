@@ -1,0 +1,179 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Splito FastAPI Backend",
+    "version": "1.0.0",
+    "description": "Production OpenAPI spec for Splito shared expense splitting platform"
+  },
+  "servers": [
+    {
+      "url": "https://apiv1.splitmate.page/api/v1",
+      "description": "Production API Server"
+    }
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "summary": "Authenticate User",
+        "operationId": "loginUser",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/LoginRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Authentication Successful",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AuthResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/me": {
+      "get": {
+        "summary": "Get Current User Profile",
+        "operationId": "getCurrentUser",
+        "responses": {
+          "200": {
+            "description": "Current User Details",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/User" }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update Current User Profile",
+        "operationId": "updateCurrentUser",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateUserRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated User Details",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/User" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/groups": {
+      "get": {
+        "summary": "List Groups",
+        "operationId": "listGroups",
+        "responses": {
+          "200": {
+            "description": "Groups List",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Group" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Group",
+        "operationId": "createGroup",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateGroupRequest" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created Group",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Group" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": { "type": "string", "format": "email" },
+          "password": { "type": "string" }
+        }
+      },
+      "AuthResponse": {
+        "type": "object",
+        "required": ["accessToken", "user"],
+        "properties": {
+          "accessToken": { "type": "string" },
+          "user": { "$ref": "#/components/schemas/User" }
+        }
+      },
+      "User": {
+        "type": "object",
+        "required": ["id", "name", "email"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "email": { "type": "string" },
+          "avatarUrl": { "type": "string", "nullable": true },
+          "preferredCurrency": { "type": "string" }
+        }
+      },
+      "UpdateUserRequest": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "avatarUrl": { "type": "string" },
+          "preferredCurrency": { "type": "string" }
+        }
+      },
+      "Group": {
+        "type": "object",
+        "required": ["id", "name", "currency", "createdBy"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": "string", "nullable": true },
+          "currency": { "type": "string" },
+          "createdBy": { "type": "string" },
+          "memberCount": { "type": "integer" }
+        }
+      },
+      "CreateGroupRequest": {
+        "type": "object",
+        "required": ["name", "currency"],
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "currency": { "type": "string" }
+        }
+      }
+    }
+  }
+}

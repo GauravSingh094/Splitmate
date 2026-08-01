@@ -1,0 +1,55 @@
+/* ============================================================
+   SPLITO DESIGN SYSTEM — Shadow System (Neo-Claymorphism)
+   Subtle dual shadows: soft top-left highlight + soft bottom-right dark ambient shadow.
+   Matte finish, low visual noise.
+   ============================================================ */
+
+:root {
+  /* --- Light Mode Neo-Clay Shadows --- */
+  /* Elevation 1: Subtle card / surface depth */
+  --shadow-elevation-1: -2px -2px 6px rgba(255, 255, 255, 0.9), 3px 4px 10px rgba(15, 23, 42, 0.05);
+
+  /* Elevation 2: Interactive hover / raised surface */
+  --shadow-elevation-2:
+    -3px -3px 8px rgba(255, 255, 255, 0.95), 4px 6px 16px rgba(15, 23, 42, 0.08);
+
+  /* Elevation 3: Dropdowns, popovers, floating controls */
+  --shadow-elevation-3: -4px -4px 12px rgba(255, 255, 255, 1), 6px 10px 24px rgba(15, 23, 42, 0.12);
+
+  /* Elevation 4: Modals, drawers, high priority overlays */
+  --shadow-elevation-4:
+    -6px -6px 16px rgba(255, 255, 255, 1), 10px 16px 36px rgba(15, 23, 42, 0.16);
+
+  /* Inset / Pressed: Pressed buttons, active input fields */
+  --shadow-inset:
+    inset 2px 2px 5px rgba(15, 23, 42, 0.06), inset -2px -2px 5px rgba(255, 255, 255, 0.8);
+
+  /* Focus Ring Shadow */
+  --shadow-focus: 0 0 0 2px hsl(210 40% 98%), 0 0 0 4px hsl(160 84% 39%);
+
+  /* Interactive State Shadows */
+  --shadow-hover: var(--shadow-elevation-2);
+  --shadow-pressed: var(--shadow-inset);
+}
+
+/* --- Dark Mode Neo-Clay Shadows --- */
+.dark {
+  /* Elevation 1 */
+  --shadow-elevation-1: -2px -2px 6px rgba(255, 255, 255, 0.03), 3px 4px 12px rgba(0, 0, 0, 0.4);
+
+  /* Elevation 2 */
+  --shadow-elevation-2: -3px -3px 8px rgba(255, 255, 255, 0.04), 4px 6px 18px rgba(0, 0, 0, 0.5);
+
+  /* Elevation 3 */
+  --shadow-elevation-3: -4px -4px 12px rgba(255, 255, 255, 0.05), 6px 10px 28px rgba(0, 0, 0, 0.6);
+
+  /* Elevation 4 */
+  --shadow-elevation-4: -6px -6px 16px rgba(255, 255, 255, 0.06), 10px 16px 42px rgba(0, 0, 0, 0.7);
+
+  /* Inset / Pressed */
+  --shadow-inset:
+    inset 2px 2px 6px rgba(0, 0, 0, 0.6), inset -2px -2px 6px rgba(255, 255, 255, 0.02);
+
+  /* Focus Ring Shadow */
+  --shadow-focus: 0 0 0 2px hsl(222.2 84% 4.9%), 0 0 0 4px hsl(160 84% 45%);
+}
